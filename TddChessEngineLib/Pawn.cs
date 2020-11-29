@@ -22,15 +22,35 @@ namespace TddChessEngineLib
 
         public void Turn(string startPosition, string finalPosition)
         {
+            int startLine =  Convert.ToInt32(startPosition[1].ToString());
+            int finalLine = Convert.ToInt32(finalPosition[1].ToString());
             // код хода для чёрной фигуры
             if(FigureColor == FigureColor.Black)
             {
-                if(Convert.ToInt32(finalPosition[1]) < Convert.ToInt32(startPosition[1]))
+                if(finalLine < startLine)
                 {
                     CurrentPosition = finalPosition;    
                 }
-                
+                else{
                 throw new ArgumentException("Black Pawn can't go back");
+                }
+                
+            }
+            else
+            {
+                if(finalLine > startLine)
+                {
+                    if ( finalLine>=5 && 
+                    finalLine - startLine>1){
+                    throw new ArgumentException("White Pawn can't go to far");
+                    }
+                    else{
+                    CurrentPosition = finalPosition;    
+                    }
+                }
+                else{
+                throw new ArgumentException("White Pawn can't go back");
+                }
             }
 
             // код хода для белой фигуры (пока без проверок)
